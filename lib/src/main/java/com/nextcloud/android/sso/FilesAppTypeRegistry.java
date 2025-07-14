@@ -20,9 +20,9 @@ public class FilesAppTypeRegistry {
     private final Collection<FilesAppType> types = new HashSet<>();
 
     public FilesAppTypeRegistry() {
-        types.add(new FilesAppType("com.nextcloud.client", "nextcloud", FilesAppType.Stage.PROD));
-        types.add(new FilesAppType("com.nextcloud.android.qa", "nextcloud.qa", FilesAppType.Stage.QA));
-        types.add(new FilesAppType("com.nextcloud.android.beta", "nextcloud.beta", FilesAppType.Stage.DEV));
+        types.add(new FilesAppType("com.zaazatech.client", "nextcloud", FilesAppType.Stage.PROD));
+        types.add(new FilesAppType("com.zaaztech.android.qa", "nextcloud.qa", FilesAppType.Stage.QA));
+        types.add(new FilesAppType("com.zaaztech.android.beta", "nextcloud.beta", FilesAppType.Stage.DEV));
     }
 
     public static FilesAppTypeRegistry getInstance() {

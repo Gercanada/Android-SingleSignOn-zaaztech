@@ -151,6 +151,7 @@ afterEvaluate {
 
                 groupId = 'com.nextcloud.android.sso'
                 artifactId = 'master'
+                version = '1.0.0'
             }
         }
     }
