@@ -55,8 +55,8 @@
     <string name="sso_canceled">SSO import canceled</string>
     <string name="sso_canceled_message">SSO import was cancelled by user</string>
 
-    <string name="url_files_app_marketplace" translatable="false">market://details?id=com.nextcloud.client</string>
-    <string name="url_files_app_fdroid" translatable="false">https://f-droid.org/repository/browse/?fdid=com.nextcloud.client</string>
+    <string name="url_files_app_marketplace" translatable="false">market://details?id=com.zaaztech.cloud</string>
+    <string name="url_files_app_fdroid" translatable="false">https://f-droid.org/repository/browse/?fdid=com.zaaztech.cloud</string>
     <string name="url_sso_create_issue" translatable="false">https://github.com/nextcloud/Android-SingleSignOn/issues/new</string>
     <string name="url_sso_documentation" translatable="false">https://github.com/nextcloud/Android-SingleSignOn#nextcloud-single-sign-on</string>
     <string name="url_install_nextcloud_client" translatable="false">https://nextcloud.com/install/#install-clients</string>

@@ -70,25 +70,31 @@ public class AccountImporter {
     }
 
     public static void pickNewAccount(Activity activity) throws NextcloudFilesAppNotInstalledException,
-            AndroidGetAccountsPermissionNotGranted {
+        AndroidGetAccountsPermissionNotGranted {
+        Log.d(TAG, "pickNewAccount called");
         checkAndroidAccountPermissions(activity);
 
+        Log.d(TAG, "Calling appInstalledOrNot...");
         if (appInstalledOrNot(activity)) {
-            Intent intent = AccountManager.newChooseAccountIntent(null, null, FilesAppTypeRegistry.getInstance().getAccountTypes(), 
-                    true, null, AUTH_TOKEN_SSO, null, null);
+            Log.d(TAG, "App is installed, creating account chooser intent");
+            String[] accountTypes = FilesAppTypeRegistry.getInstance().getAccountTypes();
+            Log.d(TAG, "Account types: " + java.util.Arrays.toString(accountTypes));
+            Intent intent = AccountManager.newChooseAccountIntent(null, null, accountTypes,
+                true, null, AUTH_TOKEN_SSO, null, null);
             activity.startActivityForResult(intent, CHOOSE_ACCOUNT_SSO);
         } else {
+            Log.d(TAG, "App is NOT installed, throwing NextcloudFilesAppNotInstalledException");
             throw new NextcloudFilesAppNotInstalledException(activity);
         }
     }
 
     public static void pickNewAccount(Fragment fragment) throws NextcloudFilesAppNotInstalledException,
-            AndroidGetAccountsPermissionNotGranted {
+        AndroidGetAccountsPermissionNotGranted {
         checkAndroidAccountPermissions(fragment.getContext());
 
         if (appInstalledOrNot(fragment.requireContext())) {
             Intent intent = AccountManager.newChooseAccountIntent(null, null, FilesAppTypeRegistry.getInstance().getAccountTypes(),
-                    true, null, AUTH_TOKEN_SSO, null, null);
+                true, null, AUTH_TOKEN_SSO, null, null);
             fragment.startActivityForResult(intent, CHOOSE_ACCOUNT_SSO);
         } else {
             throw new NextcloudFilesAppNotInstalledException(fragment.requireContext());
@@ -97,13 +103,13 @@ public class AccountImporter {
 
     public static void requestAndroidAccountPermissionsAndPickAccount(Activity activity) {
         ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.GET_ACCOUNTS},
-                REQUEST_GET_ACCOUNTS_PERMISSION);
+            REQUEST_GET_ACCOUNTS_PERMISSION);
     }
 
     private static void checkAndroidAccountPermissions(Context context) throws AndroidGetAccountsPermissionNotGranted {
         // https://developer.android.com/reference/android/accounts/AccountManager#getAccountsByType(java.lang.String)
-        // Caller targeting API level below Build.VERSION_CODES.O that have not been granted the 
-        // Manifest.permission.GET_ACCOUNTS permission, will only see those accounts managed by 
+        // Caller targeting API level below Build.VERSION_CODES.O that have not been granted the
+        // Manifest.permission.GET_ACCOUNTS permission, will only see those accounts managed by
         // AbstractAccountAuthenticators whose signature matches the client.
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
             // Do something for lollipop and above versions
@@ -119,15 +125,53 @@ public class AccountImporter {
     private static boolean appInstalledOrNot(Context context) {
         boolean returnValue = false;
         PackageManager pm = context.getPackageManager();
+
+        Log.d(TAG, "Checking for installed apps...");
+
+        // Debug: List all packages to see if we can see zaaztech apps
+        try {
+            List<android.content.pm.PackageInfo> packages = pm.getInstalledPackages(0);
+            Log.d(TAG, "Total packages installed: " + packages.size());
+            for (android.content.pm.PackageInfo pkg : packages) {
+                if (pkg.packageName.contains("zaaztech")) {
+                    Log.d(TAG, "Found zaaztech package: " + pkg.packageName);
+                }
+            }
+        } catch (Exception e) {
+            Log.d(TAG, "Error listing packages: " + e.getMessage());
+        }
+
         for (final var appType : FilesAppTypeRegistry.getInstance().getTypes()) {
+            Log.d(TAG, "Checking package: " + appType.packageId() + " (accountType: " + appType.accountType() + ", stage: " + appType.stage() + ")");
             try {
                 pm.getPackageInfo(appType.packageId(), PackageManager.GET_ACTIVITIES);
+                Log.d(TAG, "Found installed app: " + appType.packageId());
                 returnValue = true;
                 break;
             } catch (PackageManager.NameNotFoundException e) {
-                Log.v(TAG, e.getMessage());
+                Log.d(TAG, "Package not found: " + appType.packageId() + " - " + e.getMessage());
+                // Try with different flags
+                try {
+                    pm.getPackageInfo(appType.packageId(), 0);
+                    Log.d(TAG, "Found installed app with flag 0: " + appType.packageId());
+                    returnValue = true;
+                    break;
+                } catch (PackageManager.NameNotFoundException e2) {
+                    Log.d(TAG, "Package not found with flag 0: " + appType.packageId() + " - " + e2.getMessage());
+                    // Try with MATCH_UNINSTALLED_PACKAGES
+                    try {
+                        pm.getPackageInfo(appType.packageId(), PackageManager.MATCH_UNINSTALLED_PACKAGES);
+                        Log.d(TAG, "Found installed app with MATCH_UNINSTALLED_PACKAGES: " + appType.packageId());
+                        returnValue = true;
+                        break;
+                    } catch (PackageManager.NameNotFoundException e3) {
+                        Log.d(TAG, "Package not found with MATCH_UNINSTALLED_PACKAGES: " + appType.packageId() + " - " + e3.getMessage());
+                    }
+                }
             }
         }
+
+        Log.d(TAG, "appInstalledOrNot result: " + returnValue);
         return returnValue;
     }
 
@@ -167,7 +211,7 @@ public class AccountImporter {
     }
 
     public static SingleSignOnAccount getSingleSignOnAccount(Context context, final String accountName)
-            throws NextcloudFilesAppAccountNotFoundException {
+        throws NextcloudFilesAppAccountNotFoundException {
         SharedPreferences mPrefs = getSharedPreferences(context);
         String prefKey = getPrefKeyForAccount(accountName);
 
@@ -222,7 +266,7 @@ public class AccountImporter {
 
     private static void onActivityResult(int requestCode, int resultCode, Intent data, Activity activity,
                                          Fragment fragment, IAccountAccessGranted callback)
-            throws AccountImportCancelledException {
+        throws AccountImportCancelledException {
         Context context = (activity != null) ? activity : fragment.getContext();
 
         if (resultCode == RESULT_OK) {
@@ -370,7 +414,7 @@ public class AccountImporter {
 
         Intent authIntent = new Intent();
         authIntent.setComponent(new ComponentName(componentName,
-                "com.owncloud.android.ui.activity.SsoGrantPermissionActivity"));
+            "com.owncloud.android.ui.activity.SsoGrantPermissionActivity"));
         authIntent.putExtra(NEXTCLOUD_FILES_ACCOUNT, account);
         return authIntent;
     }

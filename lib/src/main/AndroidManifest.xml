@@ -16,6 +16,9 @@
         <package android:name="com.nextcloud.client" />
         <package android:name="com.nextcloud.android.qa" />
         <package android:name="com.nextcloud.android.beta" />
+        <package android:name="com.zaaztech.cloud" />
+        <package android:name="com.zaaztech.cloud.qa" />
+        <package android:name="com.zaaztech.cloud.beta" />
     </queries>
 
 </manifest>
