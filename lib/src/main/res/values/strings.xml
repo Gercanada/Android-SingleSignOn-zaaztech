@@ -14,18 +14,18 @@
     <string name="no_current_account_selected_exception_action">Documentation</string>
 
     <string name="android_get_accounts_permission_not_granted_exception_title">Permission not granted</string>
-    <string name="android_get_accounts_permission_not_granted_exception_message">In order to use the Nextcloud Single Sign On on this device, you need to grant permission to access your accounts</string>
+    <string name="android_get_accounts_permission_not_granted_exception_message">In order to use the cloud Single Sign On on this device, you need to grant permission to access your accounts</string>
 
     <string name="token_mismatch_title">Authentication error</string>
     <string name="token_mismatch_message">Provided authentication token does not match or package name is not permitted to perform this action</string>
 
-    <string name="nextcloud_files_app_not_installed_title">Nextcloud Files not installed</string>
-    <string name="nextcloud_files_app_not_installed_message">This app depends on the Nextcloud Files app. Please install it in order to use this app.</string>
+    <string name="nextcloud_files_app_not_installed_title">cloud Files not installed</string>
+    <string name="nextcloud_files_app_not_installed_message">This app depends on the cloud Files app. Please install it in order to use this app.</string>
     <string name="nextcloud_files_app_not_installed_action">Install</string>
 
     <string name="nextcloud_files_app_account_not_found_title">Account not found</string>
-    <string name="nextcloud_files_app_account_not_found_message">The requested account was not found in Nextcloud Files app</string>
-    <string name="nextcloud_files_app_account_not_found_with_account_message" formatted="true">The account %1$s was not found in Nextcloud Files app</string>
+    <string name="nextcloud_files_app_account_not_found_message">The requested account was not found in cloud Files app</string>
+    <string name="nextcloud_files_app_account_not_found_with_account_message" formatted="true">The account %1$s was not found in cloud Files app</string>
 
     <string name="nextcloud_files_app_account_permission_not_granted_title">Permission not granted</string>
     <string name="nextcloud_files_app_account_permission_not_granted_message">You have to accept the requested permissions to use the Single Sign On feature.</string>
@@ -33,7 +33,7 @@
     <string name="nextcloud_http_request_failed_title">Request failed</string>
     <string name="nextcloud_http_request_failed_message" formatted="true">HTTP request failed with HTTP status-code: %1$d</string>
 
-    <string name="nextcloud_files_app_no_store_installed_title">Nextcloud Files required</string>
+    <string name="nextcloud_files_app_no_store_installed_title">cloud Files required</string>
     <string name="nextcloud_files_app_no_store_installed_message">In order to continue please install the Nextcloud Files app on your device first.</string>
     <string name="nextcloud_files_app_no_store_installed_action">Instructions</string>
 
@@ -44,12 +44,12 @@
     <string name="nextcloud_invalid_request_url_title" translatable="false">Invalid URL</string>
     <string name="nextcloud_invalid_request_url_message" translatable="false" formatted="true">The requested URL is invalid: %1$s</string>
 
-    <string name="nextcloud_files_app_not_supported_title">Update Nextcloud Files app</string>
-    <string name="nextcloud_files_app_not_supported_message">Your Nextcloud Files app is an older version which does not yet support the Single Sign On feature.</string>
+    <string name="nextcloud_files_app_not_supported_title">Update cloud Files app</string>
+    <string name="nextcloud_files_app_not_supported_message">Your cloud Files app is an older version which does not yet support the Single Sign On feature.</string>
     <string name="nextcloud_files_app_not_supported_action">Update</string>
 
     <string name="nextcloud_files_api_not_responding_title">API is not responding</string>
-    <string name="nextcloud_files_api_not_responding_message">Nextcloud Files app API is not responding. This is most likely due to battery optimizations on your phone. Try to disable the battery optimization for both apps (Nextcloud Files and this app). In all other cases please try to clear the storage of both apps.</string>
+    <string name="nextcloud_files_api_not_responding_message">cloud Files app API is not responding. This is most likely due to battery optimizations on your phone. Try to disable the battery optimization for both apps (Nextcloud Files and this app). In all other cases please try to clear the storage of both apps.</string>
     <string name="nextcloud_files_api_not_responding_action">Settings</string>
 
     <string name="sso_canceled">SSO import canceled</string>
